@@ -145,7 +145,7 @@ class leverage:
     _memoryRSS = float()
     _associationRules = {}
 
-    def __init__(self, iFile, minLev, sep='\t', maxTS):
+    def __init__(self, iFile, minLev, sep, maxTS):
         """
         :param iFile: input file name or path
         :type iFile: str
@@ -339,17 +339,17 @@ class leverage:
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 6:
-            _ap = leverage(iFile=_ab._sys.argv[1], minLev=float(_ab._sys.argv[3]), sep=_ab._sys.argv[4],maxTS=float(_ab._sys.argv[5]))
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = leverage(iFile=_ab._sys.argv[1], minLev=float(_ab._sys.argv[3]),sep='\t',maxTS=float(_ab._sys.argv[4]))
+            _ap = leverage(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = leverage(_ab._sys.argv[1], _ab._sys.argv[3],sep='\t')
         _ap.mine()
-        #_ap.mine()
+        _ap.mine()
         print("Total number of Association Rules:", len(_ap.getAssociationRules()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        print("Error! The number of input parameters do not match the total number of parameters provided, Refer this format - iFile,oFile,minLev,sep,maxTS")
+        print("Error! The number of input parameters do not match the total number of parameters provided")
