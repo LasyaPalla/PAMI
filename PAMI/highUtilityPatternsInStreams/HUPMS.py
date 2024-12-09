@@ -338,7 +338,7 @@ class _HUSTree:
             self.windowUtility -= currentNode.children[child].utility[0]
             self.removeBatchUtility(currentNode.children[child])
 
-            if sum(currentNode.children[child].utility) == 0:
+            if(sum(currentNode.children[child].utility) == 0):
                 del currentNode.children[child]
 
 
@@ -360,25 +360,25 @@ class _HUSTree:
         curBatchUtility = tempNode.utility[0]
         tempNode.shiftUtility()
 
-        if sum(tempNode.utility) == 0:
-            if tempNode.itemName in self.headerTable.table:
+        if(sum(tempNode.utility) == 0):
+            if(tempNode.itemName in self.headerTable.table):
                 curNode = self.headerTable.table[tempNode.itemName][1]
 
-                if curNode == tempNode:
+                if(curNode == tempNode):
                     self.headerTable.table[tempNode.itemName][1] = tempNode.next
 
                 else:
-                    while curNode != None and curNode.next != tempNode:
+                    while(curNode != None and curNode.next != tempNode):
                         curNode = curNode.next
 
-                    if curNode != None:
+                    if(curNode != None):
                         curNode.next = tempNode.next
         
         self.headerTable.removeUtility(tempNode.itemName, curBatchUtility)
 
         curChilds = list(tempNode.children.keys())
         for child in curChilds:
-            if sum(tempNode.children[child].utility) == 0:
+            if(sum(tempNode.children[child].utility) == 0):
                 del tempNode.children[child]
 
     
@@ -604,7 +604,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         stack = []
 
-        while root is not None:
+        while(root is not None):
             stack.append(root)
             root = root.parent
 
@@ -621,10 +621,10 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         :type root: Node
         """
         
-        if root is None:
+        if(root is None):
             return
         
-        if len(root.utility) > 1:
+        if(len(root.utility) > 1):
             root.utility = [sum(root.utility)]
 
         for child in root.children:
@@ -654,12 +654,12 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         
         for transaction in transactions:
             for item in transaction["transaction"]:
-                if root.headerTable.table[item][0] < minUtil:
+                if(root.headerTable.table[item][0] < minUtil):
                     transaction["transaction"].remove(item)
 
         tempTree = _HUSTree(1, 1)
         for transaction in transactions:
-            if len(transaction["transaction"]) != 0:
+            if(len(transaction["transaction"]) != 0):
                 tempTree.addTransaction(transaction["transaction"], transaction["utility"])
 
         self.fixUtility(tempTree.root)
@@ -706,12 +706,12 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         :type curItem: list
         """
 
-        if root is None:
+        if(root is None):
             return
 
 
         for item in reversed(root.headerTable.orderedItems):
-            if root.headerTable.table[item][0] >= netUtil:
+            if(root.headerTable.table[item][0] >= netUtil):
                 prefixBranches = []
 
                 tempNode = root.headerTable.table[item][1]
@@ -738,13 +738,13 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
                 newItemset = curItem.copy()
                 newItemset.append(item)
 
-                if len(newItemset) not in candidatePattern:
+                if(len(newItemset) not in candidatePattern):
                     candidatePattern[len(newItemset)] = [newItemset]
 
                 else:
                     candidatePattern[len(newItemset)].append(newItemset)
 
-                if len(conditionalTree.headerTable.table) != 0:
+                if(len(conditionalTree.headerTable.table) != 0):
                     self.treeGenerations(conditionalTree, netUtil, candidatePattern, newItemset)
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
@@ -792,7 +792,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         startIndex = 0
         endIndex = self.__windowSize * self.__paneSize
 
-        while endIndex <= len(self._transactions):
+        while (endIndex <= len(self._transactions)):
 
             filteredItemsets = {}
 
@@ -804,16 +804,16 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
                 for itemSet in filteredItemsets[itemSetLen]:
                     itemSetUtility = 0
                     for transId in range(startIndex, endIndex):
-                        if self.contains(list(transactionwiseUtility[transId].keys()), itemSet):
+                        if (self.contains(list(transactionwiseUtility[transId].keys()), itemSet)):
                             for item in itemSet:
                                 itemSetUtility += transactionwiseUtility[transId][item]
 
-                    if itemSetUtility >= self._minUtil:
+                    if (itemSetUtility >= self._minUtil):
                         results.append([itemSet, itemSetUtility])
 
             self.__finalPatterns[(startIndex, endIndex)] = results
 
-            if endIndex >= len(self._transactions):
+            if (endIndex >= len(self._transactions)):
                 break
 
             self.__tree.removeBatch()

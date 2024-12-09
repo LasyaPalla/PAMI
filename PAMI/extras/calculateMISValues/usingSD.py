@@ -37,7 +37,7 @@ import validators as _validators
 import statistics as _statistics
 from urllib.request import urlopen as _urlopen
 
-class usingSD:
+class usingSD():
     """
 
     :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.

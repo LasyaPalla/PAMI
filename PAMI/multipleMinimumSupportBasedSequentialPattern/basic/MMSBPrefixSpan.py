@@ -281,7 +281,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
                 for i in line:
                     if supDatabase[i]>=self._minSup or i in head:
                         if len(newLine)>1:
-                            if newLine[-1]!=-1 or i!=-1:
+                            if (newLine[-1]!=-1 or i!=-1):
                                 newLine.append(i)
                         else:
                             newLine.append(i)
