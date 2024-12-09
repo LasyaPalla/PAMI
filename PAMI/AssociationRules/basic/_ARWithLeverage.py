@@ -97,7 +97,7 @@ class _Leverage:
 
 
         if len(suffix) == 1:
-            conf = self._generateWithLeverage(prefix, suffix[0])
+            self._generateWithLeverage(prefix, suffix[0])
         for i in range(len(suffix)):
             suffix1 = suffix[:i] + suffix[i + 1:]
             prefix1 = prefix + ' ' + suffix[i]
@@ -140,7 +140,7 @@ class _Leverage:
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
             for j in range(i + 1, len(self._singleItems)):
-                conf = self._generateWithLeverage(self._singleItems[i], self._singleItems[j])
+                self._generateWithLeverage(self._singleItems[i], self._singleItems[j])
             self._generation(prefix, suffix)
 
 

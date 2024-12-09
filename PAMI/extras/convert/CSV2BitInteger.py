@@ -35,7 +35,7 @@ Copyright (C)  2021 Rage Uday Kiran
 import numpy as np
 import pandas as pd
 
-class csvToBitInteger():
+class csvToBitInteger:
     """
 
     :Description:   csvToBitInteger is a code used to convert the csv into Bit Integer

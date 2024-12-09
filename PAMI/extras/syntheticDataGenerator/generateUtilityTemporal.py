@@ -48,7 +48,7 @@ class generateUtilityTemporal:
             len(transaction))] for transaction in self.__transactions]
 
     def save(self, outputFile: str, sep="\t", type="utility") -> None:
-        if (type == "utility"):
+        if type == "utility":
             with open(outputFile, 'w') as f:
                 for tid, (transaction, exUtils) in enumerate(zip(self.__transactions, self.__externalUtility)):
                     f.write(f"{tid}\t{sep.join(map(str, transaction))}:")
@@ -57,12 +57,12 @@ class generateUtilityTemporal:
                     f.write(
                         f"{sum(utilityValues)}:{sep.join(map(str, utilityValues))}\n")
 
-        elif (type == "internal"):
+        elif type == "internal":
             with open(outputFile, "w") as f:
                 for item, utility in zip(self.__internalUtility["items"], self.__internalUtility["utilityValues"]):
                     f.write(f"{item}{sep}{utility}\n")
 
-        elif (type == "external"):
+        elif type == "external":
             with open(outputFile, "w") as f:
                 for transaction, exUtils in zip(self.__transactions, self.__externalUtility):
                     utils = list()
