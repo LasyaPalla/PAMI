@@ -107,7 +107,7 @@ class GeoReferentialSequentialDatabase:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
 
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
